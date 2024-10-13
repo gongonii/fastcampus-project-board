@@ -21,20 +21,15 @@ import java.util.Objects;
         @Index(columnList = "createdBy")
 
 })
-@EntityListeners(AuditingEntityListener.class)
+
 @Entity
-public class ArticleComment {
+public class ArticleComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter @ManyToOne(optional = false) private Article article;
     @Setter @Column(nullable = false, length = 500) private String content;
-
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;//생성일자
-    @CreatedBy @Column(nullable = false,length = 100) private String createdBy;//생성자
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;//수정일시
-    @LastModifiedBy @Column(nullable = false) private String modifiedBy;//수정자
 
     protected ArticleComment() {} // @NoArgsConstructor(access = AccessLevel.PROTECTED)와 같이 롬복을 사용해도 됨,같은거임
 

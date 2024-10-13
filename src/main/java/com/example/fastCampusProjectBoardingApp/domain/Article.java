@@ -24,9 +24,9 @@ import java.util.Set;
         @Index(columnList = "createdBy"),
 
 })
-@EntityListeners(AuditingEntityListener.class)
+
 @Entity
-public class Article {
+public class Article extends BaseEntity {//extends BaseEtitiy 하면 상속/BaseEtitiy 안에있는건 모두 Article 에 있음
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // mysql은 identity방식으로 오토 인크리먼트가 만들어짐
@@ -43,10 +43,6 @@ public class Article {
     @OneToMany(mappedBy = "article",cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>(); //이 아티클에 연동되어있는 comment는 중복을 허용하지 않고 다 여기에서 모아서 Collection 으로 보겟더
 
-    @CreatedDate @Column(nullable = false) private LocalDateTime createdAt;//생성일자
-    @CreatedBy @Column(nullable = false,length = 100) private String createdBy;//생성자
-    @LastModifiedDate @Column(nullable = false) private LocalDateTime modifiedAt;//수정일시
-    @LastModifiedBy @Column(nullable = false) private String modifiedBy;//수정자
 
 
     protected Article() {}
